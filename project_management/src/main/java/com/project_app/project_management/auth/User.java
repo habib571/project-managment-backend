@@ -28,9 +28,11 @@
 
         @Column(nullable = false)
         private String password;
-        @OneToMany(mappedBy = "user" ,cascade = CascadeType.ALL , fetch = FetchType.LAZY)
         @JsonIgnore
-         private List<Project> projects ;
+        @OneToMany(mappedBy = "createdBy" ,cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+        private List<Project> ownedProjects ;
+
+
         @CreationTimestamp
         @Column(updatable = false, name = "created_at")
         private Date createdAt;
@@ -120,4 +122,14 @@
         public void setUpdatedAt(Date updatedAt) {
             this.updatedAt = updatedAt;
         }
+
+        public List<Project> getOwnedProjects() {
+            return ownedProjects;
+        }
+
+        public void setOwnedProjects(List<Project> myProjects) {
+            this.ownedProjects = myProjects;
+        }
+
+
     }

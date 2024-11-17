@@ -1,7 +1,10 @@
 package com.project_app.project_management.project;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project_app.project_management.auth.User;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name ="project" )
@@ -15,7 +18,7 @@ public class Project {
     private  double progress ;
     @ManyToOne
     @JoinColumn(name="user_id")
-    private User use;
+    private User createdBy;
 
     public Integer getId() {
         return id;
@@ -25,12 +28,12 @@ public class Project {
         this.id = id;
     }
 
-    public User getUse() {
-        return use;
+    public User getCreatedBy() {
+        return createdBy;
     }
 
-    public void setUse(User use) {
-        this.use = use;
+    public void setCreatedBy(User createdBy) {
+        this.createdBy = createdBy;
     }
 
     public double getProgress() {
