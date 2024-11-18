@@ -1,5 +1,6 @@
 package com.project_app.project_management.project;
 
+import com.project_app.project_management.auth.User;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -11,4 +12,6 @@ public interface ProjectRepository extends CrudRepository<Project ,Integer> {
 
     @Override
     List<Project> findAll();
+
+    List<Project> findAllByCreatedBy(User createdBy);
 }

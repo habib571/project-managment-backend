@@ -11,11 +11,13 @@ import java.util.stream.Collectors;
 @Service
 public class ProjectService {
     final ProjectRepository projectRepository;
-    public ProjectService(ProjectRepository projectRepository) {
+    final  ProjectUsersRepository projectUsersRepository;
+    public ProjectService(ProjectRepository projectRepository, ProjectUsersRepository projectUsersRepository) {
         this.projectRepository = projectRepository;
+        this.projectUsersRepository = projectUsersRepository;
     }
-     public List<Project> getAllProjects() {
-     return projectRepository.findAll() ;
+     public List<Project> getAllProjects(User user) {
+     return projectRepository.findAllByCreatedBy(user) ;
 
      }
      public Project getProjectById(int id) {
@@ -23,11 +25,18 @@ public class ProjectService {
 
      }
      public Project addProject(ProjectDTO project , User user) {
-        Project newProject = new Project();
+           Project newProject = new Project();
            newProject.setCreatedBy(user);
            newProject.setName(project.getName());
            newProject.setDescription(project.getDescription());
-        return projectRepository.save(newProject);
+            Project p=  projectRepository.save(newProject);
+            ProjectUsers projectUsers = new ProjectUsers();
+            projectUsers.setProject(p);
+            projectUsers.setRole("Manager");
+            projectUsers.setUser(user);
+            projectUsersRepository.save(projectUsers);
+
+        return p ;
      }
 
 }

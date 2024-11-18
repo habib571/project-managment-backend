@@ -19,11 +19,12 @@ public class Project {
     @ManyToOne
     @JoinColumn(name="user_id")
     private User createdBy;
-
+    @OneToMany(mappedBy = "project")
+    @JsonIgnore
+    private List<ProjectUsers> projectUsers ;
     public Integer getId() {
         return id;
     }
-
     public void setId(Integer id) {
         this.id = id;
     }
@@ -58,5 +59,13 @@ public class Project {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<ProjectUsers> getProjectUsers() {
+        return projectUsers;
+    }
+
+    public void setProjectUsers(List<ProjectUsers> projectUsers) {
+        this.projectUsers = projectUsers;
     }
 }

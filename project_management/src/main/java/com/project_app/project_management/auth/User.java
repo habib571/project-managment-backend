@@ -2,6 +2,7 @@
 
     import com.fasterxml.jackson.annotation.JsonIgnore;
     import com.project_app.project_management.project.Project;
+    import com.project_app.project_management.project.ProjectUsers;
     import jakarta.persistence.*;
     import org.hibernate.annotations.CreationTimestamp;
     import org.hibernate.annotations.UpdateTimestamp;
@@ -31,8 +32,8 @@
         @JsonIgnore
         @OneToMany(mappedBy = "createdBy" ,cascade = CascadeType.ALL , fetch = FetchType.LAZY)
         private List<Project> ownedProjects ;
-
-
+         @OneToMany( cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+        private List<ProjectUsers> projectUsers ;
         @CreationTimestamp
         @Column(updatable = false, name = "created_at")
         private Date createdAt;
