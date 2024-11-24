@@ -16,7 +16,6 @@ public class GlobalExceptionHandler {
     public ProblemDetail handleSecurityException(Exception exception) {
         ProblemDetail errorDetail = null;
 
-        // TODO send this stack trace to an observability tool
         exception.printStackTrace();
 
         if (exception instanceof BadCredentialsException) {
@@ -43,7 +42,7 @@ public class GlobalExceptionHandler {
 
         if (exception instanceof ExpiredJwtException) {
             errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(403), exception.getMessage());
-            errorDetail.setProperty("description", "The JWT token has expired");
+            errorDetail.setProperty("description", "Session expired");
         }
 
         if (errorDetail == null) {
