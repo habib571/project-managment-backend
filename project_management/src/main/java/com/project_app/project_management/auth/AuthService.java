@@ -17,6 +17,9 @@ public class AuthService {
         this.authenticationManager = authenticationManager;
 
 }
+public  boolean isUserExists(String email) {
+        return userRepository.existsByEmail(email) ;
+}
  public User register(RegisterUserDto input) {
         User user = new User()
                 .setFullName(input.getFullName())
