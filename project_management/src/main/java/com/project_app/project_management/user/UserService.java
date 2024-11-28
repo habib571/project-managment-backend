@@ -2,6 +2,7 @@ package com.project_app.project_management.user;
 
 import com.project_app.project_management.auth.User;
 import com.project_app.project_management.auth.UserRepository;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,12 +16,9 @@ public class UserService {
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-    public List<User> allUsers() {
-        List<User> users = new ArrayList<>();
-
-        userRepository.findAll().forEach(users::add);
-
-        return users;
+    public List<User> allUsers(String name , int page , int size) {
+        return new ArrayList<>(userRepository.findAllByFullNameStartsWith(name, Pageable.ofSize(size).withPage(page)
+        ));
     }
    public Optional<User> getUserById(Integer userId) {
         return userRepository.findById(userId);

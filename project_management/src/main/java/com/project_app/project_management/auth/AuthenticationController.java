@@ -15,20 +15,18 @@ public class AuthenticationController {
     private final JwtService jwtService;
 
     private final AuthService authenticationService;
-    private final View error;
+
 
     public AuthenticationController(JwtService jwtService, AuthService authenticationService, View error) {
         this.jwtService = jwtService;
         this.authenticationService = authenticationService;
-        this.error = error;
     }
 
     @PostMapping("/signup")
     public ResponseEntity<Object> register(@RequestBody RegisterUserDto registerUserDto) {
         if (authenticationService.isUserExists(registerUserDto.getEmail())) {
             ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
-                    HttpStatusCode.valueOf(400),
-                    "User with this email already exists."
+                    HttpStatusCode.valueOf(400), "User with this email already exists."
             );
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(problemDetail);
         }
@@ -41,11 +39,8 @@ public class AuthenticationController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> authenticate(@RequestBody LoginUserDto loginUserDto) {
         User authenticatedUser = authenticationService.login(loginUserDto);
-
         String jwtToken = jwtService.generateToken(authenticatedUser);
-
         LoginResponse loginResponse = new LoginResponse().setToken(jwtToken).setExpiresIn(jwtService.getExpirationTime()).setUser(new UserDTO().convertToUserDTO(authenticatedUser));
-
         return ResponseEntity.ok(loginResponse);
     }
 }
