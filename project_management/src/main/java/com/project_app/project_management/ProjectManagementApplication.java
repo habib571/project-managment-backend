@@ -8,8 +8,6 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 @EntityScan(basePackages = "com.project_app.project_management")
 public class ProjectManagementApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ProjectManagementApplication.class, args);
-	}
+	public static void main(String[] args) {SpringApplication.run(ProjectManagementApplication.class, args);}
 
 }

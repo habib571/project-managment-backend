@@ -3,7 +3,10 @@
     import com.fasterxml.jackson.annotation.JsonIgnore;
     import com.project_app.project_management.project.Project;
     import com.project_app.project_management.project.ProjectUsers;
+    import com.project_app.project_management.task.Task;
     import jakarta.persistence.*;
+    import lombok.Getter;
+    import lombok.Setter;
     import org.hibernate.annotations.CreationTimestamp;
     import org.hibernate.annotations.UpdateTimestamp;
     import org.springframework.security.core.GrantedAuthority;
@@ -12,7 +15,8 @@
     import java.util.Collection;
     import java.util.Date;
     import java.util.List;
-
+ @Getter
+ @Setter
     @Table(name = "users")
     @Entity
     public class User implements UserDetails {
@@ -29,15 +33,19 @@
 
         @Column(nullable = false)
         private String password;
+        @Column(nullable = true)
+        private String  photoUrl ;
         @JsonIgnore
         @OneToMany(mappedBy = "createdBy" ,cascade = CascadeType.ALL , fetch = FetchType.LAZY)
         private List<Project> ownedProjects ;
          @OneToMany( cascade = CascadeType.ALL, fetch = FetchType.LAZY)
         private List<ProjectUsers> projectUsers ;
+         @OneToMany( mappedBy = "assignedUser", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+         @JsonIgnore
+         private List<Task> tasks ;
         @CreationTimestamp
         @Column(updatable = false, name = "created_at")
         private Date createdAt;
-
         @UpdateTimestamp
         @Column(name = "updated_at")
         private Date updatedAt;
@@ -79,58 +87,8 @@
         }
 
 
-        public Integer getId() {
-            return id;
-        }
 
-        public void setId(Integer id) {
-            this.id = id;
-        }
-        public  String getEmail() {
-            return email ;
-        }
-        public String getFullName() {
-            return fullName;
-        }
 
-        public User setFullName(String fullName) {
-            this.fullName = fullName;
-            return  this ;
-        }
-
-        public User setEmail(String email) {
-            this.email = email;
-            return  this ;
-        }
-
-        public User setPassword(String password) {
-            this.password = password;
-            return  this ;
-        }
-
-        public Date getCreatedAt() {
-            return createdAt;
-        }
-
-        public void setCreatedAt(Date createdAt) {
-            this.createdAt = createdAt;
-        }
-
-        public Date getUpdatedAt() {
-            return updatedAt;
-        }
-
-        public void setUpdatedAt(Date updatedAt) {
-            this.updatedAt = updatedAt;
-        }
-
-        public List<Project> getOwnedProjects() {
-            return ownedProjects;
-        }
-
-        public void setOwnedProjects(List<Project> myProjects) {
-            this.ownedProjects = myProjects;
-        }
 
 
     }

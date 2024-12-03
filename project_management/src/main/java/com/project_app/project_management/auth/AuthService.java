@@ -21,10 +21,10 @@ public  boolean isUserExists(String email) {
         return userRepository.existsByEmail(email) ;
 }
  public User register(RegisterUserDto input) {
-        User user = new User()
-                .setFullName(input.getFullName())
-                .setEmail(input.getEmail())
-                .setPassword(passwordEncoder.encode(input.getPassword()));
+        User user = new User() ;
+                user.setFullName(input.getFullName());
+                user.setPassword(passwordEncoder.encode(input.getPassword()));
+                user.setEmail(input.getEmail());
         return  userRepository.save(user) ;
 
 
