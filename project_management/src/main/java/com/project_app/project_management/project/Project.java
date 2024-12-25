@@ -24,10 +24,11 @@ public class Project {
     @ManyToOne
     @JoinColumn(name="user_id")
     private User createdBy;
-    @OneToMany(mappedBy = "project")
+    @OneToMany (mappedBy = "project")
     @JsonIgnore
-    private List<ProjectUsers> projectUsers ;
-    @OneToMany(mappedBy ="project")
+    private List<ProjectUsers> projectUsers;
+    @OneToMany (mappedBy = "project")
     @JsonIgnore
-    List<Task> tasks ;
+    List<Task> tasks;
+
 }

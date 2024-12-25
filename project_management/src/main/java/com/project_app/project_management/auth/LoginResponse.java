@@ -1,27 +1,22 @@
 package com.project_app.project_management.auth;
 
-public class LoginResponse {
-    private String token;
+import lombok.Getter;
 
+public class LoginResponse {
+    @Getter
+    private String token;
+    @Getter
     private long expiresIn;
     private UserDTO userDto ;
-
-    public String getToken() {
-        return token;
-    }
 
     public LoginResponse setToken(String token) {
         this.token = token;
         return  this ;
     }
 
-    public long getExpiresIn() {
-        return expiresIn;
-    }
-
     public  LoginResponse setExpiresIn(long expiresIn) {
         this.expiresIn = expiresIn;
-        return  this ;
+        return this ;
     }
 
     public UserDTO getUser() {
