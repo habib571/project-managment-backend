@@ -2,6 +2,10 @@ package com.project_app.project_management.user;
 
 import com.project_app.project_management.auth.User;
 import com.project_app.project_management.auth.UserDTO;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -41,7 +45,7 @@ public class UserController {
         return  ResponseEntity.ok(userService.getUserById(userId)) ;
 
     }
-    @PatchMapping("/pictures{filename}")
+    @PutMapping("/upload{filename}")
     public ResponseEntity<Object> updatePicture(@PathVariable("filename") MultipartFile file) throws IOException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User currentUser = (User) authentication.getPrincipal();
@@ -54,6 +58,22 @@ public class UserController {
         userService.saveUser(currentUser);
         return ResponseEntity.ok().build();
 
+    }
+    @GetMapping("/images/{filename}")
+    public ResponseEntity<Resource> serveImage(@PathVariable String filename) {
+        try {
+            Path filePath = Paths.get("storage", "user-images", filename);
+            Resource resource = new UrlResource(filePath.toUri());
+            if (!resource.exists() || !resource.isReadable()) {
+                throw new RuntimeException("File not found or not readable: " + filename);
+            }
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_TYPE, Files.probeContentType(filePath))
+                    .body(resource);
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(null);
+        }
     }
 
 }
