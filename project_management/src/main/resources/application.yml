@@ -17,5 +17,6 @@ security:
   jwt:
     secret-key: xvOWkL0JXbP2phlhCKyrTAiTGwXwVGjkPbmXcswZrsQ=
     expiration-time: 36000000 # example: 1 hour in milliseconds*
+
 server:
   port: 8000
