@@ -17,7 +17,7 @@ public class AuthenticationController {
     private final AuthService authenticationService;
 
 
-    public AuthenticationController(JwtService jwtService, AuthService authenticationService, View error) {
+    public AuthenticationController(JwtService jwtService, AuthService authenticationService) {
         this.jwtService = jwtService;
         this.authenticationService = authenticationService;
     }
