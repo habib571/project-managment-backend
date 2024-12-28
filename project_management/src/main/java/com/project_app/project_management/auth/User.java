@@ -24,23 +24,22 @@
         @GeneratedValue(strategy = GenerationType.AUTO)
         @Column(nullable = false)
         private Integer id;
-
         @Column(nullable = false)
         private String fullName;
-
         @Column(unique = true, length = 100, nullable = false)
         private String email;
-
         @Column(nullable = false)
+        @JsonIgnore
         private String password;
         @Column(nullable = true)
         private String  photoUrl ;
         @JsonIgnore
-        @OneToMany(mappedBy = "createdBy" ,cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+        @OneToMany(mappedBy = "createdBy" ,cascade = CascadeType.ALL )
         private List<Project> ownedProjects ;
-         @OneToMany( cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+        @JsonIgnore
+         @OneToMany( cascade = CascadeType.ALL ,fetch = FetchType.EAGER)
         private List<ProjectUsers> projectUsers ;
-         @OneToMany( mappedBy = "assignedUser", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+         @OneToMany( mappedBy = "assignedUser", cascade = CascadeType.ALL)
          @JsonIgnore
          private List<Task> tasks ;
         @CreationTimestamp
@@ -49,44 +48,33 @@
         @UpdateTimestamp
         @Column(name = "updated_at")
         private Date updatedAt;
-
-        // UserDetails methods
         @Override
         public Collection<? extends GrantedAuthority> getAuthorities() {
             return List.of();
         }
-
         @Override
         public String getPassword() {
             return password;
         }
-
         @Override
         public String getUsername() {
             return email;
         }
-
         @Override
         public boolean isAccountNonExpired() {
             return true;
         }
-
         @Override
         public boolean isAccountNonLocked() {
             return true;
         }
-
         @Override
         public boolean isCredentialsNonExpired() {
             return true;
         }
-
         @Override
         public boolean isEnabled() {
             return true;
         }
-
-
-
 
     }

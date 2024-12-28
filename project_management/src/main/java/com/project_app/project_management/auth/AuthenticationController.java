@@ -33,6 +33,7 @@ public class AuthenticationController {
         String jwtToken = jwtService.generateToken(registeredUser);
        UserDTO  userDTO= new UserDTO().convertToUserDTO(registeredUser) ;
         String defaultProfileImagePath = Paths.get("storage", "default-profile.png").toString();
+
         userDTO.setImageUrl(defaultProfileImagePath);
         LoginResponse loginResponse = new LoginResponse().setToken(jwtToken).setExpiresIn(jwtService.getExpirationTime()).setUser(new UserDTO().convertToUserDTO(registeredUser));
         return ResponseEntity.ok(loginResponse);

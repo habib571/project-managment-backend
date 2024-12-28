@@ -1,7 +1,11 @@
 package com.project_app.project_management.project;
 
+import com.project_app.project_management.auth.User;
 import org.springframework.data.repository.CrudRepository;
 
-public interface ProjectUsersRepository extends CrudRepository<ProjectUsers, Integer> {
+import java.util.List;
 
+public interface ProjectUsersRepository extends CrudRepository<ProjectUsers, Integer> {
+List<ProjectUsers> findByProjectId(int projectId);
+List<ProjectUsers> findAllByUser(User user);
 }

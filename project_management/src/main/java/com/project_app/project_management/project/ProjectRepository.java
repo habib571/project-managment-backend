@@ -14,4 +14,7 @@ public interface ProjectRepository extends CrudRepository<Project ,Integer> {
     List<Project> findAll();
 
     List<Project> findAllByCreatedBy(User createdBy);
+
+    List<Project> findAllByProjectUsers(List<ProjectUsers> projectUsers);
+
 }
