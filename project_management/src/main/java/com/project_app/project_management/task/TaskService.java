@@ -19,9 +19,14 @@ public class TaskService {
     public List<Task> getProjectTasks(int project_id , int page , int size) {
      return  taskRepository.findAllByProject_Id(project_id , Pageable.ofSize(size).withPage(page)) ;
     }
-    public List<Task> getAllMyTasks(User user) {
-         return taskRepository.findAllByAssignedUser(user);
+    public List<Task> getAllMyTasks(User user ,String status) {
+        if(status == null|| status.isEmpty()) {
+             return  taskRepository.findAllByAssignedUser(user) ;
+        }
+         return taskRepository.findAllByAssignedUserAndStatus(user , status);
     }
+
+
     public Task getTaskById(int task_id) {
           return taskRepository.findById(task_id);
     }
