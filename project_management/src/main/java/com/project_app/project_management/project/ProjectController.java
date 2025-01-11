@@ -39,4 +39,11 @@ public class ProjectController {
         return ResponseEntity.ok(projectService.getAllMyProjects(currentUser));
 
     }
+    @PostMapping("/add_member")
+    public ResponseEntity<ProjectUsers> addMember(@RequestBody MemberDto memberDto) {
+        return  ResponseEntity.ok(projectService.addProjectUser(memberDto))  ;
+
+
+
+    }
 }

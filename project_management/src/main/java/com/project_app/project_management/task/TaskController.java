@@ -19,17 +19,21 @@ public class TaskController {
     public ResponseEntity<Task> createTask(@RequestBody TaskDto taskDto , @PathVariable int project_id) {
         return ResponseEntity.ok(taskService.createTask(taskDto,project_id) ) ;
     }
-    @GetMapping("/get-my-tasks/")
+    @GetMapping("/my-tasks/")
     public ResponseEntity<List<Task>> getMyTasks(@RequestParam("status") String status) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User currentUser = (User) authentication.getPrincipal();
         return  ResponseEntity.ok(taskService.getAllMyTasks(currentUser ,status)) ;
     }
 
-    @GetMapping("/get-project-tasks/{project_id}")
+    @GetMapping("/project-tasks/{project_id}")
     public ResponseEntity<List<Task>> getProjectTasks(@PathVariable int project_id , @RequestParam int page , @RequestParam int size) {
     return ResponseEntity.ok(taskService.getProjectTasks(project_id , page ,size) ) ;
     }
+   @GetMapping("/{id}")
+    public ResponseEntity<Task> getTask(@PathVariable int id) {
+        return  ResponseEntity.ok(taskService.getTaskById(id)) ;
+   }
 
 
 }

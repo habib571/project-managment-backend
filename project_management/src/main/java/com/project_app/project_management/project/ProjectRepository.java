@@ -9,12 +9,10 @@ import java.util.Optional;
 public interface ProjectRepository extends CrudRepository<Project ,Integer> {
     @Override
     Optional<Project> findById(Integer id);
-
     @Override
     List<Project> findAll();
-
     List<Project> findAllByCreatedBy(User createdBy);
+    List<Project> findAllByIdIn(List<Integer> ids);
 
-    List<Project> findAllByProjectUsers(List<ProjectUsers> projectUsers);
 
 }

@@ -18,7 +18,7 @@ spring:
 security:
   jwt:
     secret-key: xvOWkL0JXbP2phlhCKyrTAiTGwXwVGjkPbmXcswZrsQ=
-    expiration-time: 36000000 # example: 1 hour in milliseconds*
+    expiration-time: 36000000000
 
 server:
   port: 8000

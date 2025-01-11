@@ -1,5 +1,6 @@
 package com.project_app.project_management.project;
 import com.project_app.project_management.auth.User;
+import com.project_app.project_management.auth.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -9,25 +10,34 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
 public class ProjectService {
     final ProjectRepository projectRepository;
     final  ProjectUsersRepository projectUsersRepository;
-    public ProjectService(ProjectRepository projectRepository, ProjectUsersRepository projectUsersRepository) {
+    final UserRepository userRepository;
+    public ProjectService(ProjectRepository projectRepository, ProjectUsersRepository projectUsersRepository, UserRepository userRepository) {
         this.projectRepository = projectRepository;
         this.projectUsersRepository = projectUsersRepository;
+        this.userRepository = userRepository;
     }
      public List<Project> getCreatedProjects(User user) {
-     return projectRepository.findAllByCreatedBy(user) ;
+        return projectRepository.findAllByCreatedBy(user) ;
      }
+
      public List<Project>  getAllMyProjects(User user) {
         List<ProjectUsers> projectUsers = projectUsersRepository.findAllByUser(user) ;
-        return  projectRepository.findAllByProjectUsers(projectUsers);
+         List<Integer> projectIds = projectUsers.stream()
+                 .map(ProjectUsers::getId)
+                 .toList();
+
+        return  projectRepository.findAllByIdIn(projectIds);
     }
-     public Project getProjectById(int id) {
-     return projectRepository.findById(id).orElse(null);
+     public Project getProjectById(int id){
+
+        return projectRepository.findById(id).orElse(null);
      }
      public Project addProject(ProjectDTO project , User user) throws ParseException {
          SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
@@ -47,5 +57,19 @@ public class ProjectService {
             projectUsersRepository.save(projectUsers);
         return p ;
      }
+  public  ProjectUsers addProjectUser(MemberDto memberDto) {
+
+        User user = userRepository.findById(memberDto.getMember_id());
+        Project project  = getProjectById(memberDto.getProject_id());
+
+        ProjectUsers projectUsers = new ProjectUsers();
+        projectUsers.setProject(project);
+        projectUsers.setRole(memberDto.getRole());
+        projectUsers.setUser(user);
+       return   projectUsersRepository.save(projectUsers);
+
+
+  }
+
 
 }

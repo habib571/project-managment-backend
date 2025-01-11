@@ -1,0 +1,8 @@
+{
+  "type": "about:blank",
+  "title": "Internal Server Error",
+  "status": 500,
+  "detail": "Required request body is missing: public org.springframework.http.ResponseEntity<com.project_app.project_management.auth.RegisterResponse> com.project_app.project_management.auth.AuthenticationController.register(com.project_app.project_management.auth.RegisterUserDto)",
+  "instance": "/auth/signup",
+  "description": "Unknown internal server error."
+}
