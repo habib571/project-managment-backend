@@ -41,9 +41,12 @@ public class ProjectController {
     }
     @PostMapping("/add_member")
     public ResponseEntity<ProjectUsers> addMember(@RequestBody MemberDto memberDto) {
-        return  ResponseEntity.ok(projectService.addProjectUser(memberDto))  ;
+        return ResponseEntity.ok(projectService.addProjectUser(memberDto))  ;
 
-
+    }
+    @GetMapping("/members/{id}")
+    public ResponseEntity<List<ProjectUsers>> getMembers(@PathVariable int id) {
+        return ResponseEntity.ok(projectService.getProjectUsers(id))  ;
 
     }
 }

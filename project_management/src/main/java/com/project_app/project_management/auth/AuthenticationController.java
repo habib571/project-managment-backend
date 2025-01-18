@@ -18,7 +18,7 @@ public class AuthenticationController {
 
     public AuthenticationController(JwtService jwtService, AuthService authenticationService) {
         this.jwtService = jwtService;
-        this.authenticationService = authenticationService;
+        this.authenticationService = authenticationService ;
     }
 
     @PostMapping("/signup")
@@ -29,9 +29,10 @@ public class AuthenticationController {
             );
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(problemDetail);
         }
+
         User registeredUser = authenticationService.register(registerUserDto) ;
         String jwtToken = jwtService.generateToken(registeredUser);
-       UserDTO  userDTO= new UserDTO().convertToUserDTO(registeredUser) ;
+        UserDTO  userDTO= new UserDTO().convertToUserDTO(registeredUser) ;
         String defaultProfileImagePath = Paths.get("storage", "default-profile.png").toString();
 
         userDTO.setImageUrl(defaultProfileImagePath);

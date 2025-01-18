@@ -57,16 +57,18 @@ public class ProjectService {
             projectUsersRepository.save(projectUsers);
         return p ;
      }
-  public  ProjectUsers addProjectUser(MemberDto memberDto) {
 
+  public ProjectUsers addProjectUser(MemberDto memberDto) {
         User user = userRepository.findById(memberDto.getMember_id());
         Project project  = getProjectById(memberDto.getProject_id());
-
         ProjectUsers projectUsers = new ProjectUsers();
         projectUsers.setProject(project);
         projectUsers.setRole(memberDto.getRole());
         projectUsers.setUser(user);
-       return   projectUsersRepository.save(projectUsers);
+       return  projectUsersRepository.save(projectUsers);
+  }
+  public  List<ProjectUsers> getProjectUsers(int projectId) {
+      return projectUsersRepository.findByProjectId(projectId);
 
 
   }

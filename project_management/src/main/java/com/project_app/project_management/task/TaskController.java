@@ -17,7 +17,7 @@ public class TaskController {
     }
     @PostMapping("/add-task/{project_id}")
     public ResponseEntity<Task> createTask(@RequestBody TaskDto taskDto , @PathVariable int project_id) {
-        return ResponseEntity.ok(taskService.createTask(taskDto,project_id) ) ;
+        return ResponseEntity.ok(taskService.createTask(taskDto, project_id)) ;
     }
     @GetMapping("/my-tasks/")
     public ResponseEntity<List<Task>> getMyTasks(@RequestParam("status") String status) {

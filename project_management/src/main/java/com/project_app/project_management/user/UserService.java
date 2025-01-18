@@ -17,7 +17,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
     public List<User> allUsers(String name , int page , int size) {
-        return new ArrayList<>(userRepository.findAllByFullNameStartsWith(name, Pageable.ofSize(size).withPage(page)
+        return new ArrayList<>(userRepository.findByFullNameOrEmail(name, Pageable.ofSize(size).withPage(page)
         ));
     }
    public Optional<User> getUserById(Integer userId) {

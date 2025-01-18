@@ -1,5 +1,6 @@
 package com.project_app.project_management.task;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.project_app.project_management.auth.User;
 import com.project_app.project_management.project.Project;
 import jakarta.persistence.*;
@@ -17,15 +18,15 @@ public class Task {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int id;
-    @Column (length = 15)
     private String title;
     private String description;
     @Column(nullable = false)
     private String priority;
     @Column(nullable = false)
     private String status;
-    @DateTimeFormat
+    @JsonFormat (pattern = "dd-MM-yyyy")
     private Date deadline;
+    @Column(nullable = true)
     private String attachment ;
     @ManyToOne
     @JoinColumn (name = "project_id")
