@@ -1,7 +1,9 @@
 package com.project_app.project_management.task;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project_app.project_management.auth.User;
+import com.project_app.project_management.issue.Issue;
 import com.project_app.project_management.project.Project;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -34,5 +36,7 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User assignedUser;
-
+    @OneToOne(mappedBy = "task")
+    @JsonIgnore
+    private Issue issue ;
 }

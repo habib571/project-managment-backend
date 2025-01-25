@@ -3,6 +3,7 @@ package com.project_app.project_management.project;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project_app.project_management.auth.User;
+import com.project_app.project_management.issue.Issue;
 import com.project_app.project_management.task.Task;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -36,6 +37,8 @@ public class Project{
     @OneToMany (mappedBy = "project")
     @JsonIgnore
     List<Task> tasks;
-
+    @OneToMany(mappedBy = "project")
+    @JsonIgnore
+    List<Issue> issues ;
 
 }

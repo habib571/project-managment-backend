@@ -9,15 +9,10 @@ import java.util.Date;
 import java.util.List;
 
 public interface TaskRepository extends CrudRepository<Task, Integer> {
-      Task findById(int id);
-
+     Task findById(int id);
      List<Task> findAllByDeadline(Date deadline);
-
      List<Task> findAllByStatus(String status);
-
      List<Task> findAllByProject_Id(int project_id, Pageable pageable);
-
      List<Task> findAllByAssignedUser(User assignedUser);
-
      List<Task> findAllByAssignedUserAndStatus(User assignedUser, String status);
 }
