@@ -26,10 +26,8 @@ public class TaskService {
         if(status == null|| status.isEmpty()) {
              return  taskRepository.findAllByAssignedUser(user) ;
         }
-         return taskRepository.findAllByAssignedUserAndStatus(user, status);
+         return taskRepository.findAllByAssignedUser(user);
     }
-
-
     public Task getTaskById(int task_id) {
           return taskRepository.findById(task_id);
     }
@@ -46,7 +44,6 @@ public class TaskService {
          Optional<Project> projectOptional = projectRepository.findById(project_id);
           task.setProject(projectOptional.orElse(null));
          return  taskRepository.save(task);
-
 
 
     }

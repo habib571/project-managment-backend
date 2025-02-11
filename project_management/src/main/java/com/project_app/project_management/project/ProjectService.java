@@ -78,7 +78,9 @@ public class ProjectService {
          project.setDescription(projectDto.getDescription());
          project.setEndDate(projectDto.getEndDate());
          return projectRepository.save(project);
-
+  }
+  public Project deleteProject(int projectId) {
+        return projectRepository.deleteProjectById(projectId) ;
   }
 
 

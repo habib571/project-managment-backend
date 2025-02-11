@@ -13,6 +13,7 @@ public interface ProjectRepository extends CrudRepository<Project ,Integer> {
     List<Project> findAll();
     List<Project> findAllByCreatedBy(User createdBy);
     List<Project> findAllByIdIn(List<Integer> ids);
+    Project deleteProjectById(Integer id);
 
 
 }
