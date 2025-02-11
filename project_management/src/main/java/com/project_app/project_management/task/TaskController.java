@@ -26,14 +26,15 @@ public class TaskController {
         return  ResponseEntity.ok(taskService.getAllMyTasks(currentUser ,status)) ;
     }
 
-    @GetMapping("/project-tasks/{project_id}")
-    public ResponseEntity<List<Task>> getProjectTasks(@PathVariable int project_id , @RequestParam int page , @RequestParam int size) {
-    return ResponseEntity.ok(taskService.getProjectTasks(project_id , page ,size) ) ;
+    @GetMapping ("/project-tasks/{project_id}")
+    public ResponseEntity<List<Task>> getProjectTasks(@PathVariable int project_id, @RequestParam int page, @RequestParam int size) {
+        return ResponseEntity.ok(taskService.getProjectTasks(project_id, page, size));
     }
-   @GetMapping("/{id}")
+
+    @GetMapping ("/{id}")
     public ResponseEntity<Task> getTask(@PathVariable int id) {
-        return  ResponseEntity.ok(taskService.getTaskById(id)) ;
-   }
+        return ResponseEntity.ok(taskService.getTaskById(id));
+    }
 
 
 }

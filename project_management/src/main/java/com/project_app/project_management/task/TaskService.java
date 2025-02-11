@@ -26,13 +26,14 @@ public class TaskService {
         if(status == null|| status.isEmpty()) {
              return  taskRepository.findAllByAssignedUser(user) ;
         }
-         return taskRepository.findAllByAssignedUserAndStatus(user , status);
+         return taskRepository.findAllByAssignedUserAndStatus(user, status);
     }
 
 
     public Task getTaskById(int task_id) {
           return taskRepository.findById(task_id);
     }
+
     public Task createTask(TaskDto taskDto , int project_id )   {
          Task task = new Task();
          task.setDeadline(taskDto.getDeadline());

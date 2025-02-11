@@ -22,7 +22,7 @@ public class IssueController {
          return ResponseEntity.ok(issueService.getAllIssues(projectId));
     }
     @PatchMapping("/mark-as-solved/{issueId}")
-    public ResponseEntity<IssueResponse> markAsSolved(@RequestBody IssueDto issueDto, @PathVariable int issueId) {
+    public ResponseEntity<IssueResponse> markAsSolved(@PathVariable int issueId) {
         return  ResponseEntity.ok(issueService.markAsReSolved(issueId)) ;
     }
 

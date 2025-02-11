@@ -14,5 +14,8 @@ public interface TaskRepository extends CrudRepository<Task, Integer> {
      List<Task> findAllByStatus(String status);
      List<Task> findAllByProject_Id(int project_id, Pageable pageable);
      List<Task> findAllByAssignedUser(User assignedUser);
-     List<Task> findAllByAssignedUserAndStatus(User assignedUser, String status);
+     List<Task> findAllByAssignedUserAndStatusAndProject_Id(User assignedUser, String status);
+     List<Task> findAllByTitleStartingWith(String title , Pageable pageable);
+     List<Task>
+
 }

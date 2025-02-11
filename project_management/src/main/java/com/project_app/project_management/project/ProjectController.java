@@ -49,4 +49,9 @@ public class ProjectController {
         return ResponseEntity.ok(projectService.getProjectUsers(id))  ;
 
     }
+    @PatchMapping("/update/{id}")
+    public ResponseEntity<Project> updateProject(@PathVariable int id, @RequestBody ProjectDTO projectDTO) {
+         return ResponseEntity.ok(projectService.updateProject(projectDTO,id)) ;
+
+    }
 }

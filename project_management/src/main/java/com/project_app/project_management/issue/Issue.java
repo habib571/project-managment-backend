@@ -11,8 +11,8 @@ import lombok.Setter;
 @Setter
 @Entity
 public class Issue {
-    @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+     @Id
+     @GeneratedValue (strategy = GenerationType.IDENTITY)
      private Integer id ;
      private String name ;
      private String description ;
@@ -26,5 +26,4 @@ public class Issue {
      @OneToOne
      @JoinColumn(name = "task_id")
      private Task task ;
-
 }

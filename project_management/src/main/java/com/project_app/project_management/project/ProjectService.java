@@ -31,7 +31,7 @@ public class ProjectService {
         List<ProjectUsers> projectUsers = projectUsersRepository.findAllByUser(user) ;
          List<Integer> projectIds = projectUsers.stream()
                  .map(ProjectUsers::getId)
-                 .toList();
+                 .toList(); 
 
         return  projectRepository.findAllByIdIn(projectIds);
     }
@@ -70,6 +70,14 @@ public class ProjectService {
   public  List<ProjectUsers> getProjectUsers(int projectId) {
       return projectUsersRepository.findByProjectId(projectId);
 
+
+  }
+  public Project updateProject(ProjectDTO projectDto, int projectId) {
+        Project project = projectRepository.findById(projectId).orElse(null);
+         project.setName(projectDto.getName());
+         project.setDescription(projectDto.getDescription());
+         project.setEndDate(projectDto.getEndDate());
+         return projectRepository.save(project);
 
   }
 
