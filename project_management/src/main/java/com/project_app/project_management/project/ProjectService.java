@@ -72,9 +72,20 @@ public class ProjectService {
 
 
   }
+  public  ProjectUsers updateProjectUserRole(String newRole ,int id ) {
+        ProjectUsers projectUsers = projectUsersRepository.findById(id).orElse(null);
+      assert projectUsers != null;
+      projectUsers.setRole(newRole);
+         return  projectUsersRepository.save(projectUsers);
+
+  }
+  public void deleteProjectUser(int projectId) {
+        projectUsersRepository.deleteById(projectId);
+  }
   public Project updateProject(ProjectDTO projectDto, int projectId) {
         Project project = projectRepository.findById(projectId).orElse(null);
-         project.setName(projectDto.getName());
+      assert project != null;
+      project.setName(projectDto.getName());
          project.setDescription(projectDto.getDescription());
          project.setEndDate(projectDto.getEndDate());
          return projectRepository.save(project);
