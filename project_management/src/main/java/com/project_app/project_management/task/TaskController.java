@@ -1,11 +1,13 @@
 package com.project_app.project_management.task;
 
 import com.project_app.project_management.auth.User;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -36,5 +38,27 @@ public class TaskController {
         return ResponseEntity.ok(taskService.getTaskById(id));
     }
 
+    @GetMapping("/filter")
+    public ResponseEntity<List<Task>> filterTasks(
+            @RequestParam(required = false) String status,
+            @RequestParam(required = false) String priority,
+            @RequestParam(required = false) @DateTimeFormat (pattern = "dd-MM-yyyy") Date deadline  ,
+            @RequestParam int page,
+            @RequestParam int size
+    )
+    {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = (User) authentication.getPrincipal();
+        List<Task> tasks = taskService.filterTasks(status, priority, deadline , currentUser ,size , page);
+        return ResponseEntity.ok(tasks);
+    }
+    @GetMapping("/search/{name}")
+    public  ResponseEntity<List<Task>> searchTasks(@PathVariable String name , @RequestParam int page, @RequestParam int size) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = (User) authentication.getPrincipal();
+        List<Task>  tasks = taskService.searchTasks(currentUser ,page ,size , name);
+        return ResponseEntity.ok(tasks);
+
+    }
 
 }

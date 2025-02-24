@@ -4,8 +4,13 @@ import com.project_app.project_management.auth.User;
 import com.project_app.project_management.auth.UserRepository;
 import com.project_app.project_management.project.Project;
 import com.project_app.project_management.project.ProjectRepository;
+import com.project_app.project_management.project.ProjectUsers;
+import com.project_app.project_management.project.ProjectUsersRepository;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,10 +19,12 @@ public class TaskService {
     final  TaskRepository taskRepository;
     final ProjectRepository projectRepository;
     final UserRepository userRepository;
-    public TaskService(TaskRepository taskRepository, ProjectRepository projectRepository, UserRepository userRepository) {
+    final ProjectUsersRepository projectUsersRepository;
+    public TaskService(TaskRepository taskRepository, ProjectRepository projectRepository, UserRepository userRepository, ProjectUsersRepository projectUsersRepository) {
         this.taskRepository = taskRepository;
         this.projectRepository = projectRepository;
         this.userRepository = userRepository;
+        this.projectUsersRepository = projectUsersRepository;
     }
     public List<Task> getProjectTasks(int project_id , int page , int size) {
      return  taskRepository.findAllByProject_Id(project_id , Pageable.ofSize(size).withPage(page)) ;
@@ -44,6 +51,35 @@ public class TaskService {
          Optional<Project> projectOptional = projectRepository.findById(project_id);
           task.setProject(projectOptional.orElse(null));
          return  taskRepository.save(task);
+    }
+    public List<Task> filterTasks(String status, String priority, Date deadline, User user ,int size , int page) {
+        List<ProjectUsers> projectUsers = projectUsersRepository.findAllByUser(user) ;
+        List<Integer> projectIds = projectUsers.stream()
+                .map(ProjectUsers::getId)
+                .toList();
+        Specification<Task> spec = Specification.where(null);
+
+        if (status != null && !status.isEmpty()) {
+            spec = spec.and(TaskSpecification.hasStatus(status));
+        }
+        if (priority != null && !priority.isEmpty()) {
+            spec = spec.and(TaskSpecification.hasPriority(priority));
+        }
+        if (deadline != null) {
+            spec = spec.and(TaskSpecification.hasDeadline(deadline));
+        }
+            spec = spec.and(TaskSpecification.hasProjectIds(projectIds));
+
+        return taskRepository.findAllBy(spec ,Pageable.ofSize(size).withPage(page));
+    }
+
+    public  List<Task> searchTasks(User user , int page , int size ,String taskName) {
+        List<ProjectUsers> projectUsers = projectUsersRepository.findAllByUser(user) ;
+        List<Integer> projectIds = projectUsers.stream()
+                .map(ProjectUsers::getId)
+                .toList();
+        List<Task> tasks = taskRepository.findAllByProjectIdInAndTitleStartingWith(projectIds ,taskName, Pageable.ofSize(size).withPage(page)) ;
+        return tasks;
 
 
     }
