@@ -71,8 +71,9 @@ public class ProjectController {
       return  ResponseEntity.ok(projectService.deleteProject(id)) ;
     }
     @DeleteMapping("/delete-member/{id}")
-    public ResponseEntity<Project> deleteMember(@PathVariable int id) {
-        return  ResponseEntity.ok(projectService.deleteProject(id)) ;
+    public ResponseEntity<String> deleteMember(@PathVariable int id) {
+         projectService.deleteProjectUser(id);
+        return  ResponseEntity.ok(" member deleted ");
     }
 
 
