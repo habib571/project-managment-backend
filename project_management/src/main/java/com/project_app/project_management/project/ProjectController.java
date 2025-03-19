@@ -62,14 +62,16 @@ public class ProjectController {
         return ResponseEntity.ok(projectService.updateProject(projectDTO, id));
 
     }
-    @PatchMapping("/update-member/{id}/{newRole}")
-    public ResponseEntity<ProjectUsers> updateMember(@PathVariable int id, @PathVariable String newRole) {
+    @PatchMapping("/update-member/{id}/")
+    public ResponseEntity<ProjectUsers> updateMember(@PathVariable int id, @RequestBody String newRole) {
         return  ResponseEntity.ok(projectService.updateProjectUserRole(newRole ,id)) ;
     }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Project> deleteProject(@PathVariable int id) {
       return  ResponseEntity.ok(projectService.deleteProject(id)) ;
     }
+
     @DeleteMapping("/delete-member/{id}")
     public ResponseEntity<String> deleteMember(@PathVariable int id) {
          projectService.deleteProjectUser(id);

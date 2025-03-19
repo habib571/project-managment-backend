@@ -33,7 +33,7 @@ public class ProjectService {
                  .map(ProjectUsers::getId)
                  .toList(); 
 
-        return  projectRepository.findAllByIdIn(projectIds);
+        return projectRepository.findAllByIdIn(projectIds);
     }
      public Project getProjectById(int id){
 

@@ -78,10 +78,20 @@ public class TaskService {
         List<Integer> projectIds = projectUsers.stream()
                 .map(ProjectUsers::getId)
                 .toList();
-        List<Task> tasks = taskRepository.findAllByProjectIdInAndTitleStartingWith(projectIds ,taskName, Pageable.ofSize(size).withPage(page)) ;
-        return tasks;
+        return taskRepository.findAllByProjectIdInAndTitleStartingWith(projectIds ,taskName, Pageable.ofSize(size).withPage(page));
 
 
+
+    }
+    public Task updateTask(TaskDto taskDto , int project_id ) {
+        Task task  = taskRepository.findById(project_id) ;
+        task.setDeadline(taskDto.getDeadline());
+        task.setDescription(taskDto.getDescription());
+        task.setPriority(taskDto.getPriority());
+        task.setStatus(taskDto.getStatus());
+        task.setTitle(taskDto.getName());
+        task.setAssignedUser(userRepository.findById(taskDto.getAssignedTo()));
+        return  taskRepository.save(task);
     }
 
 

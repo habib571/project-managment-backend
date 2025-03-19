@@ -14,13 +14,15 @@ public class TaskDto {
     private String priority;
     private int assignedTo ;
     private Date deadline;
-    public TaskDto(int assignedTo, String attachment, String priority, String description, String name , Date deadline) {
+    private  String status;
+    public TaskDto(int assignedTo, String attachment, String status,String priority, String description, String name , Date deadline) {
         this.assignedTo = assignedTo;
     //    this.attachment = attachment;
         this.priority = priority;
         this.description = description;
         this.name = name;
         this.deadline = deadline;
+        this.status = status ;
     }
 
 }

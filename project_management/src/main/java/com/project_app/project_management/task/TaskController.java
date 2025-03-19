@@ -60,5 +60,10 @@ public class TaskController {
         return ResponseEntity.ok(tasks);
 
     }
+    @PatchMapping("/update/{id}")
+    public ResponseEntity<Task> updateTask(@PathVariable int id, @RequestBody TaskDto taskDto) {
+        return  ResponseEntity.ok(taskService.updateTask(taskDto ,id)) ;
+     }
+
 
 }
