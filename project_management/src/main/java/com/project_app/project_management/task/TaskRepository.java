@@ -4,13 +4,15 @@ package com.project_app.project_management.task;
 import com.project_app.project_management.auth.User;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-public interface TaskRepository extends CrudRepository<Task, Integer> {
+public interface TaskRepository extends JpaRepository<Task, Integer>, JpaSpecificationExecutor<Task> {
      Task findById(int id);
      List<Task> findAllByDeadline(Date deadline);
      List<Task> findAllByStatus(String status);

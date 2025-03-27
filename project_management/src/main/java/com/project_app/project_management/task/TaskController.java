@@ -42,9 +42,9 @@ public class TaskController {
     public ResponseEntity<List<Task>> filterTasks(
             @RequestParam(required = false) String status,
             @RequestParam(required = false) String priority,
-            @RequestParam(required = false) @DateTimeFormat (pattern = "dd-MM-yyyy") Date deadline  ,
-            @RequestParam int page,
-            @RequestParam int size
+            @RequestParam(required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") Date deadline,
+            @RequestParam(required = false, defaultValue = "0") Integer page,
+            @RequestParam(required = false, defaultValue = "5") Integer size
     )
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -52,8 +52,8 @@ public class TaskController {
         List<Task> tasks = taskService.filterTasks(status, priority, deadline , currentUser ,size , page);
         return ResponseEntity.ok(tasks);
     }
-    @GetMapping("/search/{name}")
-    public  ResponseEntity<List<Task>> searchTasks(@PathVariable String name , @RequestParam int page, @RequestParam int size) {
+    @GetMapping("/search")
+    public  ResponseEntity<List<Task>> searchTasks(@RequestParam("name") String name , @RequestParam("page") int page, @RequestParam("size") int size) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User currentUser = (User) authentication.getPrincipal();
         List<Task>  tasks = taskService.searchTasks(currentUser ,page ,size , name);

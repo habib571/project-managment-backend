@@ -1,3 +1,11 @@
+GET http://localhost:8000/task/filter?status=SxBI5aSj&priority=YpQPCIka&deadline=hdr8S1rV&page=34&size=83
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 0
+
+###
+
 POST http://localhost:8000/auth/signup
 Content-Type: application/json
 Content-Length: 67

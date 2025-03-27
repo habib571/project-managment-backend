@@ -16,7 +16,7 @@ public interface UserRepository extends CrudRepository<User ,Integer> {
     Optional<User> findByEmail(String email) ;
     boolean existsByEmail(String email);
     @Query ("SELECT DISTINCT u FROM User u WHERE u.fullName LIKE %:input% OR u.email LIKE %:input%")
-    List<User> findByFullNameOrEmail(@Param ("input") String input, Pageable pageable);;
+    List<User> findByFullNameOrEmail(@Param ("input") String input, Pageable pageable);
     User findById(int id);
 
 }

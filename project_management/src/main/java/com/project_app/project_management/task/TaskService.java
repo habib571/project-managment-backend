@@ -59,16 +59,20 @@ public class TaskService {
                 .toList();
         Specification<Task> spec = Specification.where(null);
 
-        if (status != null && !status.isEmpty()) {
+        if (status != null ) {
             spec = spec.and(TaskSpecification.hasStatus(status));
         }
-        if (priority != null && !priority.isEmpty()) {
+        if (priority != null ) {
             spec = spec.and(TaskSpecification.hasPriority(priority));
         }
         if (deadline != null) {
             spec = spec.and(TaskSpecification.hasDeadline(deadline));
         }
             spec = spec.and(TaskSpecification.hasProjectIds(projectIds));
+        System.out.println("Status: " + status);
+        System.out.println("Priority: " + priority);
+        System.out.println("Deadline: " + deadline);
+        System.out.println("Page: " + page);
 
         return taskRepository.findAllBy(spec ,Pageable.ofSize(size).withPage(page));
     }

@@ -8,7 +8,7 @@ import java.util.List;
 public class TaskSpecification {
 
     public static Specification<Task> hasStatus(String status) {
-        return (root, query, cb) -> cb.equal(root.get("status"), status);
+        return (root, query, cb) -> cb.equal(root.get("status"),":status");
     }
 
     public static Specification<Task> hasPriority(String priority) {
