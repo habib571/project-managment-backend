@@ -40,9 +40,9 @@ public class TaskController {
 
     @GetMapping("/filter")
     public ResponseEntity<List<Task>> filterTasks(
-            @RequestParam(required = false) String status,
-            @RequestParam(required = false) String priority,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") Date deadline,
+            @RequestParam(required = false ) String status,
+            @RequestParam(required = false ) String priority,
+            @RequestParam(required = false ) @DateTimeFormat(pattern = "dd-MM-yyyy") Date deadline,
             @RequestParam(required = false, defaultValue = "0") Integer page,
             @RequestParam(required = false, defaultValue = "5") Integer size
     )

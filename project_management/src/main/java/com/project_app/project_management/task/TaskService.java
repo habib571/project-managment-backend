@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -57,38 +58,33 @@ public class TaskService {
         List<Integer> projectIds = projectUsers.stream()
                 .map(ProjectUsers::getId)
                 .toList();
-        Specification<Task> spec = Specification.where(null);
 
-        if (status != null ) {
-            spec = spec.and(TaskSpecification.hasStatus(status));
-        }
-        if (priority != null ) {
-            spec = spec.and(TaskSpecification.hasPriority(priority));
-        }
+        String deadlineStr = null;
         if (deadline != null) {
-            spec = spec.and(TaskSpecification.hasDeadline(deadline));
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            deadlineStr = sdf.format(deadline);
         }
-            spec = spec.and(TaskSpecification.hasProjectIds(projectIds));
-        System.out.println("Status: " + status);
-        System.out.println("Priority: " + priority);
-        System.out.println("Deadline: " + deadline);
-        System.out.println("Page: " + page);
 
-        return taskRepository.findAllBy(spec ,Pageable.ofSize(size).withPage(page));
+        return taskRepository.findFilteredTasks(
+                status,
+                priority,
+                deadlineStr,
+                projectIds,
+                Pageable.ofSize(size).withPage(page)
+        );
     }
 
     public  List<Task> searchTasks(User user , int page , int size ,String taskName) {
+
         List<ProjectUsers> projectUsers = projectUsersRepository.findAllByUser(user) ;
         List<Integer> projectIds = projectUsers.stream()
                 .map(ProjectUsers::getId)
                 .toList();
         return taskRepository.findAllByProjectIdInAndTitleStartingWith(projectIds ,taskName, Pageable.ofSize(size).withPage(page));
 
-
-
     }
-    public Task updateTask(TaskDto taskDto , int project_id ) {
-        Task task  = taskRepository.findById(project_id) ;
+    public Task updateTask(TaskDto taskDto , int task_id ) {
+        Task task  = taskRepository.findById(task_id) ;
         task.setDeadline(taskDto.getDeadline());
         task.setDescription(taskDto.getDescription());
         task.setPriority(taskDto.getPriority());
