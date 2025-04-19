@@ -1,4 +1,5 @@
 package com.project_app.project_management.auth;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ProblemDetail;
@@ -22,7 +23,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<Object> register(@RequestBody RegisterUserDto registerUserDto) {
+    public ResponseEntity<Object> register(@Valid @RequestBody RegisterUserDto registerUserDto) {
         if (authenticationService.isUserExists(registerUserDto.getEmail())) {
             ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
                     HttpStatusCode.valueOf(400), "User with this email already exists."
@@ -41,7 +42,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> authenticate(@RequestBody LoginUserDto loginUserDto) {
+    public ResponseEntity<LoginResponse> authenticate(@Valid @RequestBody LoginUserDto loginUserDto) {
         User authenticatedUser = authenticationService.login(loginUserDto);
         String jwtToken = jwtService.generateToken(authenticatedUser);
         LoginResponse loginResponse = new LoginResponse().setToken(jwtToken).setExpiresIn(jwtService.getExpirationTime()).setUser(new UserDTO().convertToUserDTO(authenticatedUser));
