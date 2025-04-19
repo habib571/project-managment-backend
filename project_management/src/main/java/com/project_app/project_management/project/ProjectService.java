@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -24,6 +25,7 @@ public class ProjectService {
         this.userRepository = userRepository;
     }
      public List<Project> getCreatedProjects(User user) {
+
         return projectRepository.findAllByCreatedBy(user) ;
      }
 
@@ -31,7 +33,7 @@ public class ProjectService {
         List<ProjectUsers> projectUsers = projectUsersRepository.findAllByUser(user) ;
          List<Integer> projectIds = projectUsers.stream()
                  .map(ProjectUsers::getId)
-                 .toList(); 
+                 .toList();
 
         return projectRepository.findAllByIdIn(projectIds);
     }
@@ -59,17 +61,16 @@ public class ProjectService {
      }
 
   public ProjectUsers addProjectUser(MemberDto memberDto) {
-        User user = userRepository.findById(memberDto.getMember_id());
+        Optional<User> user = userRepository.findById(memberDto.getMember_id());
         Project project  = getProjectById(memberDto.getProject_id());
         ProjectUsers projectUsers = new ProjectUsers();
         projectUsers.setProject(project);
         projectUsers.setRole(memberDto.getRole());
-        projectUsers.setUser(user);
+        projectUsers.setUser(user.get());
        return  projectUsersRepository.save(projectUsers);
   }
   public  List<ProjectUsers> getProjectUsers(int projectId) {
       return projectUsersRepository.findByProjectId(projectId);
-
 
   }
   public  ProjectUsers updateProjectUserRole(String newRole ,int id ) {
@@ -77,7 +78,6 @@ public class ProjectService {
       assert projectUsers != null;
       projectUsers.setRole(newRole);
          return  projectUsersRepository.save(projectUsers);
-
   }
   public void deleteProjectUser(int projectId) {
         projectUsersRepository.deleteById(projectId);

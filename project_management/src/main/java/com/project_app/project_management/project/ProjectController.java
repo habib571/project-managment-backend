@@ -1,6 +1,7 @@
 package com.project_app.project_management.project;
 
 import com.project_app.project_management.auth.User;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,7 +20,7 @@ public class ProjectController {
     }
 
     @PostMapping ("/add_project")
-    public ResponseEntity<Project> addProject(@RequestBody ProjectDTO project) throws ParseException {
+    public ResponseEntity<Project> addProject(@Valid @RequestBody ProjectDTO project) throws ParseException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User currentUser = (User) authentication.getPrincipal();
         return ResponseEntity.ok(projectService.addProject(project, currentUser));
@@ -46,7 +47,7 @@ public class ProjectController {
     }
 
     @PostMapping ("/add_member")
-    public ResponseEntity<ProjectUsers> addMember(@RequestBody MemberDto memberDto) {
+    public ResponseEntity<ProjectUsers> addMember(@Valid @RequestBody MemberDto memberDto) {
         return ResponseEntity.ok(projectService.addProjectUser(memberDto));
 
     }
@@ -62,9 +63,9 @@ public class ProjectController {
         return ResponseEntity.ok(projectService.updateProject(projectDTO, id));
 
     }
-    @PatchMapping("/update-member/{id}/")
-    public ResponseEntity<ProjectUsers> updateMember(@PathVariable int id, @RequestBody String newRole) {
-        return  ResponseEntity.ok(projectService.updateProjectUserRole(newRole ,id)) ;
+    @PatchMapping("/update-member/{id}")
+    public ResponseEntity<ProjectUsers> updateMember(@PathVariable int id,  @Valid @RequestBody UpdateMemberRoleDto request) {
+        return  ResponseEntity.ok(projectService.updateProjectUserRole(request.getRole() ,id)) ;
     }
 
     @DeleteMapping("/delete/{id}")
