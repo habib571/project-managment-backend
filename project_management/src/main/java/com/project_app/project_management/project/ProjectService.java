@@ -32,9 +32,8 @@ public class ProjectService {
      public List<Project>  getAllMyProjects(User user) {
         List<ProjectUsers> projectUsers = projectUsersRepository.findAllByUser(user) ;
          List<Integer> projectIds = projectUsers.stream()
-                 .map(ProjectUsers::getId)
+                 .map(pu -> pu.getProject().getId())
                  .toList();
-
         return projectRepository.findAllByIdIn(projectIds);
     }
      public Project getProjectById(int id){

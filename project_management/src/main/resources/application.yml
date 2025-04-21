@@ -19,6 +19,8 @@ security:
   jwt:
     secret-key: xvOWkL0JXbP2phlhCKyrTAiTGwXwVGjkPbmXcswZrsQ=
     expiration-time: 36000000000
+upload:
+ dir: C:\Users\asus\IdeaProjects\project-managment-backend\project_management\src\main\java\com\project_app\project_management\storage\uploads
 
 server:
   port: 8000

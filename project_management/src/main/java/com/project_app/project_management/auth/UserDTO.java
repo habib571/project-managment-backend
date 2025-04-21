@@ -13,14 +13,12 @@ public class UserDTO  {
     private String email;
     private  String imageUrl ;
 
-
     public UserDTO convertToUserDTO(User user) {
         UserDTO userDTO = new UserDTO();
         userDTO.setId(user.getId());
         userDTO.setFullName(user.getFullName());
         userDTO.setEmail(user.getEmail());
         userDTO.setImageUrl(imageUrl);
-
         return userDTO;
     }
 

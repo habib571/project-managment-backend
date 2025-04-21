@@ -48,7 +48,7 @@ public class TaskService {
          task.setPriority(taskDto.getPriority());
          task.setStatus("To-Do");
          task.setTitle(taskDto.getName());
-         task.setAssignedUser(userRepository.findById(taskDto.getAssignedTo()));
+         task.setAssignedUser(userRepository.findById(taskDto.getAssignedTo()).get());
          Optional<Project> projectOptional = projectRepository.findById(project_id);
           task.setProject(projectOptional.orElse(null));
          return  taskRepository.save(task);
@@ -90,7 +90,7 @@ public class TaskService {
         task.setPriority(taskDto.getPriority());
         task.setStatus(taskDto.getStatus());
         task.setTitle(taskDto.getName());
-        task.setAssignedUser(userRepository.findById(taskDto.getAssignedTo()));
+        task.setAssignedUser(userRepository.findById(taskDto.getAssignedTo()).get());
         return  taskRepository.save(task);
     }
 

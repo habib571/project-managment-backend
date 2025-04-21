@@ -6,6 +6,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -45,19 +46,25 @@ public class UserController {
         return  ResponseEntity.ok(userService.getUserById(userId)) ;
 
     }
-    @PutMapping("/upload{filename}")
-    public ResponseEntity<Object> updatePicture(@PathVariable("filename") MultipartFile file) throws IOException {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User currentUser = (User) authentication.getPrincipal();
-        String uploadDir = Paths.get("storage", "user-images").toString();
-        String fileName = file.getOriginalFilename();
-        Path filePath = Paths.get(uploadDir, fileName);
-        Files.createDirectories(filePath.getParent()); // Ensure the directory exists
-        file.transferTo(filePath);
-        currentUser.setPhotoUrl(filePath.toString());
-        userService.saveUser(currentUser);
-        return ResponseEntity.ok().build();
+    @PutMapping(
+            value = "/me/image",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE
+    )
+    public ResponseEntity<UserDTO> updateProfileImage(@RequestBody() MultipartFile file) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = (User) auth.getPrincipal();
 
+        try {
+            String storedFilename = userService.updateProfileImage(currentUser.getId(), file);
+            currentUser.setPhotoUrl(storedFilename);
+            UserDTO dto = new UserDTO().convertToUserDTO(currentUser);
+            return ResponseEntity.ok(dto);
+
+        } catch (IOException e) {
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(null);
+        }
     }
     @GetMapping("/images/{filename}")
     public ResponseEntity<Resource> serveImage(@PathVariable String filename) {
