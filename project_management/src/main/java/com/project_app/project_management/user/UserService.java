@@ -34,15 +34,14 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public String updateProfileImage(Integer userId, MultipartFile file) throws  IOException {
+    public User updateProfileImage(Integer userId, MultipartFile file) throws IOException {
         String filename = uploadsService.storeFile(file);
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
 
         user.setPhotoUrl(filename);
-        userRepository.save(user);
-
-        return filename;
+        // save and return the managed, up-to-date User
+        return userRepository.save(user);
     }
 
 }
