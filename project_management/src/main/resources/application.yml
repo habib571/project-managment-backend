@@ -14,7 +14,12 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-
+springdoc:
+  api-docs:
+    path: /v1/api-docs
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
 security:
   jwt:
     secret-key: xvOWkL0JXbP2phlhCKyrTAiTGwXwVGjkPbmXcswZrsQ=
