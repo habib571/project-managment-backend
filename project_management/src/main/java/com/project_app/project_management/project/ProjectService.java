@@ -1,6 +1,7 @@
 package com.project_app.project_management.project;
 import com.project_app.project_management.auth.User;
 import com.project_app.project_management.auth.UserRepository;
+import com.project_app.project_management.task.TaskRepository;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -19,10 +20,12 @@ public class ProjectService {
     final ProjectRepository projectRepository;
     final  ProjectUsersRepository projectUsersRepository;
     final UserRepository userRepository;
-    public ProjectService(ProjectRepository projectRepository, ProjectUsersRepository projectUsersRepository, UserRepository userRepository) {
+    final TaskRepository taskRepository;
+    public ProjectService(ProjectRepository projectRepository, ProjectUsersRepository projectUsersRepository, UserRepository userRepository, TaskRepository taskRepository) {
         this.projectRepository = projectRepository;
         this.projectUsersRepository = projectUsersRepository;
         this.userRepository = userRepository;
+        this.taskRepository = taskRepository;
     }
      public List<Project> getCreatedProjects(User user) {
 
@@ -87,10 +90,18 @@ public class ProjectService {
       project.setName(projectDto.getName());
          project.setDescription(projectDto.getDescription());
          project.setEndDate(projectDto.getEndDate());
+         project.setProgress((double) taskRepository.countAllByProjectIdAndStatus(projectId, "Done") /taskRepository.countAllByProjectId(projectId));
          return projectRepository.save(project);
   }
   public Project deleteProject(int projectId) {
         return projectRepository.deleteProjectById(projectId) ;
+  }
+
+  public  void updateProgress(int id  ) {
+      Project project = projectRepository.findById(id).orElse(null);
+      assert project != null;
+      project.setProgress((double) taskRepository.countAllByProjectIdAndStatus(id, "Done") /taskRepository.countAllByProjectId(id));
+
   }
 
 

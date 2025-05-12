@@ -33,4 +33,6 @@ public interface TaskRepository extends JpaRepository<Task, Integer>, JpaSpecifi
                                  @Param("projectIds") List<Integer> projectIds,
                                  Pageable pageable);
      List<Task> findAllByProjectIdInAndTitleStartingWith(List<Integer> project_id, String title ,Pageable pageable);
+     int countAllByProjectId(int project_id);
+     int countAllByProjectIdAndStatus(int project_id, String status);
 }
