@@ -22,7 +22,7 @@ public class ProjectDTO {
     private String description;
 
     @NotNull(message = "End date is required")
-    @Future(message = "End date must be in the future")
+//   @Future(message = "End date must be in the future")
     private Date endDate;
 
 }

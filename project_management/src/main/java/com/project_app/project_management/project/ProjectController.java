@@ -23,7 +23,7 @@ public class ProjectController {
     public ResponseEntity<Project> addProject(@Valid @RequestBody ProjectDTO project) throws ParseException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User currentUser = (User) authentication.getPrincipal();
-        return ResponseEntity.ok(projectService.addProject(project, currentUser));
+            return ResponseEntity.ok(projectService.addProject(project, currentUser));
     }
 
     @GetMapping ("/{id}")
