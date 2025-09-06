@@ -28,4 +28,4 @@ upload:
  dir: C:\Users\asus\IdeaProjects\project-managment-backend\project_management\src\main\java\com\project_app\project_management\storage\uploads
 
 server:
-  port: 8000
+  port: 8080
