@@ -1,6 +1,8 @@
 package com.project_app.project_management.project;
 
 import com.project_app.project_management.auth.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -10,9 +12,9 @@ public interface ProjectRepository extends CrudRepository<Project ,Integer> {
     @Override
     Optional<Project> findById(Integer id);
     @Override
-    List<Project> findAll();
+    Page<Project> findAll();
     List<Project> findAllByCreatedBy(User createdBy);
-    List<Project> findAllByIdIn(List<Integer> ids);
+    Page<Project> findAllByIdIn(List<Integer> ids ,Pageable pageable);
     Project deleteProjectById(Integer id);
 
 

@@ -12,4 +12,5 @@ public class MeetingDto {
     private LocalDateTime scheduledTime;
     private Integer projectId;
     private List<Integer> participantIds;
+
 }

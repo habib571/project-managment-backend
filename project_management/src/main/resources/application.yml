@@ -23,7 +23,9 @@ springdoc:
 security:
   jwt:
     secret-key: xvOWkL0JXbP2phlhCKyrTAiTGwXwVGjkPbmXcswZrsQ=
-    expiration-time: 36000000000
+    expiration-time: 604800000
+    refresh-expiration-time: 604800000    # 7 days
+
 upload:
  dir: C:\Users\asus\IdeaProjects\project-managment-backend\project_management\src\main\java\com\project_app\project_management\storage\uploads
 

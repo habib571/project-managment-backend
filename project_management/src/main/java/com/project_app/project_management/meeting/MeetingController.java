@@ -24,4 +24,10 @@ public class MeetingController {
         return ResponseEntity.ok(meeting);
 
     }
+    @PatchMapping("update-status/{meetingId}")
+    public  ResponseEntity<?> updateStatus(@PathVariable Integer meetingId, @RequestBody MeetingStatus newStatus) {
+       return ResponseEntity.ok(meetingService.updateStatus(meetingId, newStatus));
+
+
+    }
 }

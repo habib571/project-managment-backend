@@ -51,6 +51,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
          @UpdateTimestamp
          @Column(name = "updated_at")
          private Date updatedAt;
+        @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+        @JsonIgnore
+         private RefreshToken refreshToken;
          @Override
          public Collection<? extends GrantedAuthority> getAuthorities() {return List.of();}
          @Override

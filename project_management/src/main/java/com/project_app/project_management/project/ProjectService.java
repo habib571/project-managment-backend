@@ -2,6 +2,9 @@ package com.project_app.project_management.project;
 import com.project_app.project_management.auth.User;
 import com.project_app.project_management.auth.UserRepository;
 import com.project_app.project_management.task.TaskRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -11,6 +14,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -32,12 +36,26 @@ public class ProjectService {
         return projectRepository.findAllByCreatedBy(user) ;
      }
 
-     public List<Project>  getAllMyProjects(User user) {
-        List<ProjectUsers> projectUsers = projectUsersRepository.findAllByUser(user) ;
-         List<Integer> projectIds = projectUsers.stream()
-                 .map(pu -> pu.getProject().getId())
-                 .toList();
-        return projectRepository.findAllByIdIn(projectIds);
+    public Map<String, Object> getAllMyProjects(User user, int page, int size) {
+        List<ProjectUsers> projectUsers = projectUsersRepository.findAllByUser(user);
+        List<Integer> projectIds = projectUsers.stream()
+                .map(pu -> pu.getProject().getId())
+                .toList();
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Project> projects = projectRepository.findAllByIdIn(projectIds, pageable);
+
+        return Map.of(
+                "data", projects.getContent(),
+                "pagination", Map.of(
+                        "currentPage", projects.getNumber(),
+                        "totalPages", projects.getTotalPages(),
+                        "totalElements", projects.getTotalElements(),
+                        "isFirstPage", projects.isFirst(),
+                        "isLastPage", projects.isLast(),
+                        "pageSize", projects.getSize()
+                )
+        );
     }
      public Project getProjectById(int id){
 
