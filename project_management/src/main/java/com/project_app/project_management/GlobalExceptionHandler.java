@@ -11,6 +11,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -73,6 +74,14 @@ public class GlobalExceptionHandler {
             errorDetail.setProperty("description", "Unknown internal server error.");
         }
 
+        return errorDetail;
+    }
+    @ExceptionHandler(ResponseStatusException.class)
+    public ProblemDetail handleResponseStatusException(ResponseStatusException exception) {
+        ProblemDetail errorDetail = ProblemDetail.forStatusAndDetail(
+                exception.getStatusCode(), exception.getReason()
+        );
+        errorDetail.setProperty("description", "A request validation or resource lookup failed.");
         return errorDetail;
     }
 }
