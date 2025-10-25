@@ -33,4 +33,5 @@ public class ProjectUsers {
     @JsonIgnore
     private List<Meeting> meetings = new ArrayList<>();
 
+
 }

@@ -44,5 +44,7 @@ public class Project{
     @OneToMany(mappedBy = "project")
     @JsonIgnore
     private List<Meeting> meetings;
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Activity> activities;
 
 }
