@@ -35,7 +35,7 @@ public class Task {
     private Project project;
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User assignedUser;
+    private     User assignedUser;
     @OneToOne(mappedBy = "task")
     @JsonIgnore
     private Issue issue ;

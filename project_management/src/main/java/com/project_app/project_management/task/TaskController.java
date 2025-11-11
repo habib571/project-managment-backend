@@ -29,7 +29,11 @@ public class TaskController {
     }
 
     @GetMapping ("/project-tasks/{project_id}")
-    public ResponseEntity<List<Task>> getProjectTasks(@PathVariable int project_id, @RequestParam int page, @RequestParam int size) {
+    public ResponseEntity<?> getProjectTasks(
+            @PathVariable int project_id,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
         return ResponseEntity.ok(taskService.getProjectTasks(project_id, page, size));
     }
 

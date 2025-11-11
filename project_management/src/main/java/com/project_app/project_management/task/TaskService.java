@@ -4,6 +4,8 @@ import com.project_app.project_management.auth.User;
 import com.project_app.project_management.auth.UserRepository;
 import com.project_app.project_management.project.*;
 import com.project_app.project_management.user.UserService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
@@ -11,10 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class TaskService {
@@ -39,11 +38,24 @@ public class TaskService {
         this.activityService = activityService;
     }
 
-    public List<Task> getProjectTasks(int projectId, int page, int size) {
+    public Map<String, Object> getProjectTasks(int projectId, int page, int size) {
         if (!projectRepository.existsById(projectId)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Project not found with ID: " + projectId);
         }
-        return taskRepository.findAllByProject_Id(projectId, Pageable.ofSize(size).withPage(page));
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Task> tasks = taskRepository.findAllByProject_Id(projectId, pageable);
+        return Map.of(
+                "data", tasks.getContent(),
+                "pagination", Map.of(
+                        "currentPage", tasks.getNumber(),
+                        "totalPages", tasks.getTotalPages(),
+                        "totalElements", tasks.getTotalElements(),
+                        "isFirstPage", tasks.isFirst(),
+                        "isLastPage", tasks.isLast(),
+                        "pageSize", tasks.getSize()
+                )
+        );
+
     }
 
     public List<Task> getAllMyTasks(User user, String status) {
