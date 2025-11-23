@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+### Firebase / Secrets ###
+# Never push service account keys
+project_management/src/main/resources/*firebase*.json
+
