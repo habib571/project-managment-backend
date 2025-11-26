@@ -23,7 +23,7 @@ public class ProjectController {
     public ResponseEntity<Project> addProject(@Valid @RequestBody ProjectDTO project) throws ParseException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User currentUser = (User) authentication.getPrincipal();
-        return ResponseEntity.ok(projectService.addProject(project, currentUser));
+            return ResponseEntity.ok(projectService.addProject(project, currentUser));
     }
 
     @GetMapping ("/{id}")
@@ -38,12 +38,14 @@ public class ProjectController {
         return ResponseEntity.ok(projectService.getCreatedProjects(currentUser));
     }
 
-    @GetMapping ("/my_projects")
-    public ResponseEntity<List<Project>> getMyProjects() {
+    @GetMapping("/my_projects")
+    public ResponseEntity<?> getMyProjects(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User currentUser = (User) authentication.getPrincipal();
-        return ResponseEntity.ok(projectService.getAllMyProjects(currentUser));
-
+        return ResponseEntity.ok(projectService.getAllMyProjects(currentUser, page, size));
     }
 
     @PostMapping ("/add_member")
@@ -78,6 +80,5 @@ public class ProjectController {
          projectService.deleteProjectUser(id);
         return  ResponseEntity.ok(" member deleted ");
     }
-
 
 }

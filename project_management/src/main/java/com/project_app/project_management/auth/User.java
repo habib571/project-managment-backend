@@ -1,22 +1,25 @@
     package com.project_app.project_management.auth;
 import com.fasterxml.jackson.annotation.JsonIgnore;
     import com.project_app.project_management.issue.Issue;
-    import com.project_app.project_management.project.Project;
+import com.project_app.project_management.project.Activity;
+import com.project_app.project_management.project.Project;
     import com.project_app.project_management.project.ProjectUsers;
     import com.project_app.project_management.task.Task;
     import jakarta.persistence.*;
-    import lombok.Getter;
-    import lombok.Setter;
-    import org.hibernate.annotations.CreationTimestamp;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
     import org.hibernate.annotations.UpdateTimestamp;
     import org.springframework.security.core.GrantedAuthority;
     import org.springframework.security.core.userdetails.UserDetails;
 
-    import java.util.Collection;
+import java.util.ArrayList;
+import java.util.Collection;
     import java.util.Date;
     import java.util.List;
- @Getter
- @Setter
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
     @Table(name = "users")
     @Entity
     public class User implements UserDetails {
@@ -51,6 +54,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
          @UpdateTimestamp
          @Column(name = "updated_at")
          private Date updatedAt;
+        @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+        @JsonIgnore
+         private RefreshToken refreshToken;
+     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+     @JsonIgnore
+     private List<Activity> activities = new ArrayList<>();
          @Override
          public Collection<? extends GrantedAuthority> getAuthorities() {return List.of();}
          @Override

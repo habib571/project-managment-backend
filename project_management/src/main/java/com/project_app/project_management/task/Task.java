@@ -6,14 +6,15 @@ import com.project_app.project_management.auth.User;
 import com.project_app.project_management.issue.Issue;
 import com.project_app.project_management.project.Project;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
 @Getter
-@Setter
+@Setter  // or @Getter @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table (name = "task")
 public class Task {
@@ -35,7 +36,7 @@ public class Task {
     private Project project;
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User assignedUser;
+    private     User assignedUser;
     @OneToOne(mappedBy = "task")
     @JsonIgnore
     private Issue issue ;

@@ -1,12 +1,13 @@
 package com.project_app.project_management.auth;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 
-@Setter
 @Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserDTO  {
     private Integer id;
     private String fullName;

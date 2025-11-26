@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="HttpClientEndpointsTabState">
-    <option name="requestToText" value="&lt;CachedHttpClientTabRequests&gt;&#10;  &lt;entry key=&quot;0c46e37b4a4acbe14104b5ca7a61ba5dd9716a1a&quot; value=&quot;###&amp;#10;GET http://localhost:8000/task/filter?&amp;#10;    status={{$random.alphanumeric(8)}}&amp;amp;&amp;#10;    priority={{$random.alphanumeric(8)}}&amp;amp;&amp;#10;    deadline={{$random.alphanumeric(8)}}&amp;amp;&amp;#10;    page={{$random.integer(100)}}&amp;amp;&amp;#10;    size={{$random.integer(100)}}&quot; /&gt;&#10;&lt;/CachedHttpClientTabRequests&gt;" />
+    <option name="requestToText" value="&lt;CachedHttpClientTabRequests&gt;&#10;  &lt;entry key=&quot;16c567b3d553ac789f5c350cf1bb1590b23865e9&quot; value=&quot;###&amp;#10;POST http://localhost:8000/meeting&amp;#10;Content-Type: application/json&amp;#10;&amp;#10;{&amp;#10;  &amp;quot;title&amp;quot;: &amp;quot;&amp;quot;,&amp;#10;  &amp;quot;type&amp;quot;: &amp;quot;INSTANT&amp;quot;,&amp;#10;  &amp;quot;scheduledTime&amp;quot;: &amp;quot;&amp;quot;,&amp;#10;  &amp;quot;projectId&amp;quot;: 0,&amp;#10;  &amp;quot;participantIds&amp;quot;: []&amp;#10;}&quot; /&gt;&#10;&lt;/CachedHttpClientTabRequests&gt;" />
   </component>
 </project>

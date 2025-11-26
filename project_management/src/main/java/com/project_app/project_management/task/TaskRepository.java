@@ -2,6 +2,7 @@ package com.project_app.project_management.task;
 
 
 import com.project_app.project_management.auth.User;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,7 +19,7 @@ public interface TaskRepository extends JpaRepository<Task, Integer>, JpaSpecifi
      Task findById(int id);
      List<Task> findAllByDeadline(Date deadline);
      List<Task> findAllByStatus(String status);
-     List<Task> findAllByProject_Id(int project_id, Pageable pageable);
+     Page<Task> findAllByProject_Id(int project_id, Pageable pageable);
      List<Task> findAllByAssignedUser(User assignedUser);
     // List<Task> findAllBy(Specification<Task> spec ,Pageable pageable);
     @Query(value = "SELECT * FROM task t " +

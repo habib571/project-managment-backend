@@ -1,10 +1,11 @@
 package com.project_app.project_management.issue;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
-@Setter
+@Setter  // or @Getter @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class IssueDto {
      private String name;
      private String description;

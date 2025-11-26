@@ -18,6 +18,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RequestMapping("/users")
@@ -36,9 +37,11 @@ public class UserController {
     }
 
     @GetMapping("/{name}")
-    public ResponseEntity<List<User>> allUsers(@PathVariable("name") String name , @RequestParam("page") int page , @RequestParam("size") int size) {
-        List<User> users = userService.allUsers(name, page, size);
-        return ResponseEntity.ok(users);
+    public ResponseEntity<Map<String, Object>> allUsers(
+            @PathVariable("name") String name,
+            @RequestParam("page") int page,
+            @RequestParam("size") int size) {
+        return ResponseEntity.ok(userService.allUsers(name, page, size));
     }
 
     @GetMapping("/userById/{id}")
