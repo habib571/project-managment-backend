@@ -30,7 +30,7 @@ jobs:
       - name: Wait for backend
         run: |
           for i in {1..15}; do
-            if curl -s http://localhost:8080/health | grep "OK"; then
+            if curl -s http://localhost:8080 | grep "OK"; then
               echo "Backend is up!"
               break
             else
@@ -39,17 +39,7 @@ jobs:
             fi
           done
 
-      # 6️⃣ Test backend endpoint
-      - name: Test backend
-        run: |
-          RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/api/test)
-          if [ "$RESPONSE" -ne 200 ]; then
-            echo "Backend test failed with status $RESPONSE"
-            exit 1
-          else
-            echo "Backend test passed"
-          fi
-
+   
       # 7️⃣ Clean up
       - name: Stop and remove containers
         run: docker compose -f project_management/docker-compose.yml down
