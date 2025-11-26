@@ -18,5 +18,5 @@ jobs:
 
       - name: Build Docker Compose
         run: |
-         cd project_management/project_management_backend
+         cd project_management_backend/project_management_backend
          docker compose build
