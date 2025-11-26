@@ -17,6 +17,4 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       - name: Build Docker Compose
-        run: |
-         cd project_management_backend/project_management
-         docker compose build
+        run:  docker compose -f docker-compose.yml build
