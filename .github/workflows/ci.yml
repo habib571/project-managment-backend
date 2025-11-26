@@ -30,7 +30,7 @@ jobs:
       - name: Wait for backend
         run: |
           for i in {1..30}; do
-            if curl -s http://localhost:8080 | grep "OK"; then
+            if curl -s http://localhost:8080/ | grep "OK"; then
               echo "Backend is up!"
               break
             else
