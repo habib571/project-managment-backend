@@ -1,4 +1,4 @@
-name: Build Docker on Prod
+name: Build and Test Docker Backend
 
 on:
   push:
@@ -6,16 +6,52 @@ on:
       - main
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Checkout repo
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # 2️⃣ Set up Docker Buildx
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
+      # 3️⃣ Build Docker Compose
       - name: Build Docker Compose
         run: docker compose -f project_management/docker-compose.yml build
+
+      # 4️⃣ Run containers
+      - name: Run Docker Compose
+        run: docker compose -f project_management/docker-compose.yml up -d
+
+      # 5️⃣ Wait for backend to be ready
+      - name: Wait for backend
+        run: |
+          for i in {1..15}; do
+            if curl -s http://localhost:8080/health | grep "OK"; then
+              echo "Backend is up!"
+              break
+            else
+              echo "Waiting for backend..."
+              sleep 5
+            fi
+          done
+
+      # 6️⃣ Test backend endpoint
+      - name: Test backend
+        run: |
+          RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/api/test)
+          if [ "$RESPONSE" -ne 200 ]; then
+            echo "Backend test failed with status $RESPONSE"
+            exit 1
+          else
+            echo "Backend test passed"
+          fi
+
+      # 7️⃣ Clean up
+      - name: Stop and remove containers
+        run: docker compose -f project_management/docker-compose.yml down
+
 
