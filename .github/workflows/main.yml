@@ -2,7 +2,7 @@ name: Build Docker on Prod
 
 on:
   push:
-    branches:
+    branches  :
       - main
 
 jobs:
@@ -18,4 +18,5 @@ jobs:
 
       - name: Build Docker Compose services
         run: |
+          cd project_management/project_management_backend
           docker compose build
