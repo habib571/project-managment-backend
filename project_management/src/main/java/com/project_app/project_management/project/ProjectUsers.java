@@ -4,8 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project_app.project_management.auth.User;
 import com.project_app.project_management.meeting.Meeting;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 
@@ -13,8 +12,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Setter
 @Getter
+@Setter// or @Getter @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity(name = "project_users")
 public class ProjectUsers {
     @Id

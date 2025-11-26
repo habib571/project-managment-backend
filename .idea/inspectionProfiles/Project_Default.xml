@@ -9,9 +9,6 @@
           <option value="project_management" />
           <option value="project_management" />
           <option value="project_management" />
-          <option value="project_management" />
-          <option value="project_management" />
-          <option value="project_management" />
         </list>
       </option>
       <option name="ignoredPackages">
@@ -20,16 +17,10 @@
           <option value="org.springframework:spring-context:6.1.13" />
           <option value="org.springframework.security:spring-security-crypto:6.3.3" />
           <option value="net.minidev:json-smart:2.5.1" />
-          <option value="org.apache.tomcat.embed:tomcat-embed-core:10.1.30" />
-          <option value="org.springframework:spring-webmvc:6.1.13" />
-          <option value="org.springframework:spring-webflux:6.1.13" />
         </list>
       </option>
       <option name="ignoredReasons">
         <list>
-          <option value="Not exploitable" />
-          <option value="Not exploitable" />
-          <option value="Not exploitable" />
           <option value="Not exploitable" />
           <option value="Not exploitable" />
           <option value="Not exploitable" />

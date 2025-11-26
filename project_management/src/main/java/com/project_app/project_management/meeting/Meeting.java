@@ -4,8 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.project_app.project_management.project.Project;
 import com.project_app.project_management.project.ProjectUsers;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -13,7 +12,9 @@ import java.util.List;
 import java.util.UUID;
 
 @Getter
-@Setter
+@Setter // or @Getter @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "meetings")
 public class Meeting {
@@ -39,8 +40,8 @@ public class Meeting {
     private LocalDateTime endTime;
      @Enumerated(EnumType.STRING)
     private MeetingStatus  status;
-
-
+    @Column(nullable = false)
+     double duration ;
     @ManyToOne
     @JoinColumn(name = "project_id", nullable = false)
     private Project project;

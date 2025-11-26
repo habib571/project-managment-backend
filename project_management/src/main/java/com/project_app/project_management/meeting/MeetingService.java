@@ -43,6 +43,7 @@ public class MeetingService {
         meeting.setScheduledTime(meetingDto.getScheduledTime());
         meeting.setProject(project);
         meeting.setParticipants(participants);
+        meeting.setDuration(meetingDto.getDuration());
         return meetingRepository.save(meeting);
     }
     public List<Meeting> findMeetingByProjectId(int projectId) {

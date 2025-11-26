@@ -3,14 +3,15 @@ package com.project_app.project_management.project;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.project_app.project_management.auth.User;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
 
 @Getter
-@Setter
+@Setter// or @Getter @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "activity")
 public class Activity {

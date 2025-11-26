@@ -1,10 +1,11 @@
 package com.project_app.project_management.issue;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
-@Setter
+@Setter   // or @Getter @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class IssueResponse {
     private int id;
     private String name ;

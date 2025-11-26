@@ -4,11 +4,12 @@ import com.project_app.project_management.auth.User;
 import com.project_app.project_management.project.Project;
 import com.project_app.project_management.task.Task;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
-@Setter
+@Setter// or @Getter @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Issue {
      @Id

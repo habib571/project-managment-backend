@@ -3,11 +3,12 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
-@Setter
+@Setter // or @Getter @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class MemberDto {
 
  @NotNull(message = "Member ID is required")
