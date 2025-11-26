@@ -21,7 +21,7 @@ public class AuthenticationController {
 
 
     public AuthenticationController(JwtService jwtService, AuthService authenticationService, RefreshTokenRepository refreshTokenRepository, RefreshTokenService refreshTokenService, RefreshTokenRepository refreshTokenRepository1) {
-        this.jwtService = jwtService;
+        this.jwtService =  jwtService;
         this.authenticationService = authenticationService ;
         this.refreshTokenService = refreshTokenService;
         this.refreshTokenRepository = refreshTokenRepository1;
