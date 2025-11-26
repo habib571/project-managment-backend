@@ -14,7 +14,7 @@ import java.util.Map;
 @RequestMapping("/auth")
 @RestController
 public class AuthenticationController {
-    private final JwtService jwtService;
+    private  final JwtService jwtService;
     private final AuthService authenticationService;
     private final  RefreshTokenService refreshTokenService;
     private  final  RefreshTokenRepository refreshTokenRepository;
