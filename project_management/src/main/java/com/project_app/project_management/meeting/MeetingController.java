@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/meeting")
@@ -17,9 +18,12 @@ public class MeetingController {
     }
 
     @GetMapping("/all/{projectId}")
-    public ResponseEntity<List<Meeting>> getAllMeetings(@PathVariable Integer projectId) {
-        List<Meeting> meeting = meetingService.findMeetingByProjectId(projectId);
-        return ResponseEntity.ok(meeting);
+    public ResponseEntity<?> getAllMeetings(
+            @PathVariable Integer projectId ,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+            ) {
+        return ResponseEntity.ok(meetingService.findMeetingByProjectId(projectId,page ,size));
     }
     @PatchMapping("update-status/{meetingId}")
     public  ResponseEntity<?> updateStatus(@PathVariable Integer meetingId, @RequestBody MeetingStatus newStatus) {
