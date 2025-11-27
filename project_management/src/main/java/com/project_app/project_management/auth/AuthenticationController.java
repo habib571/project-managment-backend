@@ -14,14 +14,14 @@ import java.util.Map;
 @RequestMapping("/auth")
 @RestController
 public class AuthenticationController {
-    private final JwtService jwtService;
+    private  final JwtService jwtService;
     private final AuthService authenticationService;
     private final  RefreshTokenService refreshTokenService;
     private  final  RefreshTokenRepository refreshTokenRepository;
 
 
     public AuthenticationController(JwtService jwtService, AuthService authenticationService, RefreshTokenRepository refreshTokenRepository, RefreshTokenService refreshTokenService, RefreshTokenRepository refreshTokenRepository1) {
-        this.jwtService = jwtService;
+        this.jwtService =  jwtService;
         this.authenticationService = authenticationService ;
         this.refreshTokenService = refreshTokenService;
         this.refreshTokenRepository = refreshTokenRepository1;
